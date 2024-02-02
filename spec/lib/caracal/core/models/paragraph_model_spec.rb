@@ -11,6 +11,7 @@ describe Caracal::Core::Models::ParagraphModel do
       italic      false
       underline   true
       bgcolor     'cccccc'
+      page_flip   true
     end
   end
 
@@ -31,6 +32,7 @@ describe Caracal::Core::Models::ParagraphModel do
       it { expect(subject.paragraph_italic).to eq false }
       it { expect(subject.paragraph_underline).to eq true }
       it { expect(subject.paragraph_bgcolor).to eq 'cccccc' }
+      it { expect(subject.paragraph_page_flip).to eq true }
     end
 
   end
@@ -51,7 +53,7 @@ describe Caracal::Core::Models::ParagraphModel do
 
     # .run_attributes
     describe '.run_attributes' do
-      let(:expected) { { color: '666666', size: 20, bold: false, italic: false, underline: true, bgcolor: 'cccccc' } }
+      let(:expected) { { color: '666666', size: 20, bold: false, italic: false, underline: true, bgcolor: 'cccccc', page_flip: true } }
 
       it { expect(subject.run_attributes).to eq expected }
     end
@@ -74,6 +76,11 @@ describe Caracal::Core::Models::ParagraphModel do
       before { subject.underline(true) }
 
       it { expect(subject.paragraph_underline).to eq true }
+    end
+    describe '.page_flip' do
+      before { subject.page_flip(true) }
+
+      it { expect(subject.paragraph_page_flip).to eq true }
     end
 
     # integers
@@ -203,7 +210,7 @@ describe Caracal::Core::Models::ParagraphModel do
     # .option_keys
     describe '.option_keys' do
       let(:actual)   { subject.send(:option_keys).sort }
-      let(:expected) { [:content, :style, :align, :color, :size, :bold, :italic, :underline, :bgcolor].sort }
+      let(:expected) { [:content, :style, :align, :color, :size, :bold, :italic, :underline, :bgcolor, :page_flip].sort }
 
       it { expect(actual).to eq expected }
     end
