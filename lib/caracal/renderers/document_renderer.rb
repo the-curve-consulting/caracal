@@ -274,6 +274,33 @@ module Caracal
         end
       end
 
+      def render_pageflip(xml, model)
+        xml['w'].p paragraph_options do
+          xml['w'].pPr do
+            xml['w'].sectPr do
+              xml['w'].pgSz({
+                'w:w' => document.page_width,
+                'w:h' => document.page_height
+              })
+            end
+          end
+        end
+        model.contents.each do |model|
+          method = render_method_for_model(model)
+          send(method, xml, model)
+        end
+        xml['w'].p paragraph_options do
+          xml['w'].pPr do
+            xml['w'].sectPr do
+              xml['w'].pgSz({
+                'w:w' => document.page_height,
+                'w:h' => document.page_width
+              })
+            end
+          end
+        end
+      end
+
       def render_pagebreak(xml, model)
         if model.page_break_wrap
           xml['w'].p paragraph_options do
@@ -296,9 +323,6 @@ module Caracal
             xml['w'].pStyle({ 'w:val' => model.paragraph_style })  unless model.paragraph_style.nil?
             xml['w'].contextualSpacing({ 'w:val' => '0' })
             xml['w'].jc({ 'w:val' => model.paragraph_align })  unless model.paragraph_align.nil?
-            xml['w'].sectPr do
-              xml['w'].pgSz({ 'w:w' => document.page_height, 'w:h' => document.page_width })
-            end unless model.paragraph_page_flip.nil?
             render_run_attributes(xml, model, true)
           end
           model.runs.each do |run|
