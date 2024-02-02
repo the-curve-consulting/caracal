@@ -274,6 +274,33 @@ module Caracal
         end
       end
 
+      def render_pageflip(xml, model)
+        xml['w'].p paragraph_options do
+          xml['w'].pPr do
+            xml['w'].sectPr do
+              xml['w'].pgSz({
+                'w:w' => document.page_width,
+                'w:h' => document.page_height
+              })
+            end
+          end
+        end
+        model.contents.each do |model|
+          method = render_method_for_model(model)
+          send(method, xml, model)
+        end
+        xml['w'].p paragraph_options do
+          xml['w'].pPr do
+            xml['w'].sectPr do
+              xml['w'].pgSz({
+                'w:w' => document.page_height,
+                'w:h' => document.page_width
+              })
+            end
+          end
+        end
+      end
+
       def render_pagebreak(xml, model)
         if model.page_break_wrap
           xml['w'].p paragraph_options do

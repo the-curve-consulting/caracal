@@ -39,6 +39,14 @@ Caracal::Core::Models::TableCellModel.class_eval do
   include Caracal::Core::Text
 end
 
+Caracal::Core::Models::PageFlipModel.class_eval do
+  include Caracal::Core::Images
+  include Caracal::Core::Lists
+  include Caracal::Core::Rules
+  include Caracal::Core::Tables
+  include Caracal::Core::Text
+end
+
 Caracal::Core::Models::FooterModel.class_eval do
   include Caracal::Core::Images
   include Caracal::Core::Lists
