@@ -32,6 +32,7 @@ describe Caracal::Core::Models::StyleModel do
       it { expect(described_class::DEFAULT_STYLE_LINE).to eq 360 }
       it { expect(described_class::DEFAULT_STYLE_BASE).to eq 'Normal' }
       it { expect(described_class::DEFAULT_STYLE_NEXT).to eq 'Normal' }
+      it { expect(described_class::DEFAULT_STYLE_OUTLINE).to eq 9 }
     end
 
     # accessors
@@ -53,6 +54,7 @@ describe Caracal::Core::Models::StyleModel do
       it { expect(subject.style_line).to eq 360 }
       it { expect(subject.style_base).to eq 'Normal' }
       it { expect(subject.style_next).to eq 'Normal' }
+      it { expect(subject.style_outline).to eq 9 }
     end
 
   end
@@ -146,6 +148,11 @@ describe Caracal::Core::Models::StyleModel do
 
       it { expect(subject.style_font).to eq 'Helvetica' }
     end
+    describe '.outline' do
+      before { subject.outline(3) }
+
+      it { expect(subject.style_outline).to eq "3" }
+    end
 
     # symbols
     describe '.align' do
@@ -215,7 +222,7 @@ describe Caracal::Core::Models::StyleModel do
     # .option_keys
     describe '.option_keys' do
       let(:actual)   { subject.send(:option_keys).sort }
-      let(:expected) { [:type, :bold, :italic, :underline, :caps, :top, :bottom, :size, :line, :id, :name, :color, :font, :align, :indent_left, :indent_right, :indent_first].sort }
+      let(:expected) { [:type, :bold, :italic, :underline, :caps, :top, :bottom, :size, :line, :id, :name, :color, :font, :align, :indent_left, :indent_right, :indent_first, :outline].sort }
 
       it { expect(actual).to eq expected }
     end

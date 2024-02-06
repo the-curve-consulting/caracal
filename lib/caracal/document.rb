@@ -3,6 +3,7 @@ require 'zip'
 
 require 'caracal/core/bookmarks'
 require 'caracal/core/custom_properties'
+require 'caracal/core/fields'
 require 'caracal/core/file_name'
 require 'caracal/core/fonts'
 require 'caracal/core/footer'
@@ -59,6 +60,7 @@ module Caracal
     include Caracal::Core::ListStyles
 
     include Caracal::Core::Bookmarks
+    include Caracal::Core::Fields
     include Caracal::Core::IFrames
     include Caracal::Core::Images
     include Caracal::Core::Lists

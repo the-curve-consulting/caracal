@@ -22,6 +22,7 @@ module Caracal
             xml['w'].compat do
               xml['w'].compatSetting({ 'w:val' => '14', 'w:name' => 'compatibilityMode', 'w:uri' => 'http://schemas.microsoft.com/office/word' })
             end
+            xml['w'].updateFields({ 'w:val' => true })
           end
         end
         builder.to_xml(save_options)

@@ -19,12 +19,12 @@ module Caracal
           def self.default_styles
             [
               { id: 'Normal',   name: 'normal',    font: 'Arial',    size: 20, line: 320, color: '333333' },
-              { id: 'Heading1', name: 'heading 1', font: 'Palatino', size: 36, bottom: 120 },
-              { id: 'Heading2', name: 'heading 2', font: 'Arial',    size: 26, top: 120, bottom: 160, bold: true },
-              { id: 'Heading3', name: 'heading 3', font: 'Arial',    size: 24, top: 120, bottom: 160, bold: true, italic: true, color: '666666' },
-              { id: 'Heading4', name: 'heading 4', font: 'Palatino', size: 24, top: 120, bottom: 120, bold: true },
-              { id: 'Heading5', name: 'heading 5', font: 'Arial',    size: 22, top: 120, bottom: 120, bold: true },
-              { id: 'Heading6', name: 'heading 6', font: 'Arial',    size: 22, top: 120, bottom: 120, underline: true, italic: true, color: '666666' },
+              { id: 'Heading1', name: 'heading 1', font: 'Palatino', size: 36, outline: 0, bottom: 120},
+              { id: 'Heading2', name: 'heading 2', font: 'Arial',    size: 26, outline: 1, top: 120, bottom: 160, bold: true },
+              { id: 'Heading3', name: 'heading 3', font: 'Arial',    size: 24, outline: 2, top: 120, bottom: 160, bold: true, italic: true, color: '666666' },
+              { id: 'Heading4', name: 'heading 4', font: 'Palatino', size: 24, outline: 3, top: 120, bottom: 120, bold: true },
+              { id: 'Heading5', name: 'heading 5', font: 'Arial',    size: 22, outline: 4, top: 120, bottom: 120, bold: true },
+              { id: 'Heading6', name: 'heading 6', font: 'Arial',    size: 22, outline: 5, top: 120, bottom: 120, underline: true, italic: true, color: '666666' },
               { id: 'Title',    name: 'title',     font: 'Palatino', size: 60 },
               { id: 'Subtitle', name: 'subtitle',  font: 'Arial',    size: 28, top: 60 }
             ]           

@@ -31,6 +31,7 @@ module Caracal
                   xml['w'].b({ 'w:val' => (s.style_bold ? '1' : '0') })
                   xml['w'].i({ 'w:val' => (s.style_italic ? '1' : '0') })
                   xml['w'].caps({ 'w:val' => (s.style_caps ? '1' : '0') })
+                  xml['w'].outlineLvl({ 'w:val' => s.style_outline })
                   xml['w'].smallCaps({ 'w:val' => '0' })
                   xml['w'].strike({ 'w:val' => '0' })
                   xml['w'].color({ 'w:val' => s.style_color })
@@ -75,6 +76,7 @@ module Caracal
                   xml['w'].widowControl({ 'w:val' => '1' })
                   xml['w'].spacing(spacing_options(s)) unless spacing_options(s).nil?
                   xml['w'].contextualSpacing({ 'w:val' => '1' })
+                  xml['w'].outlineLvl({ 'w:val' => s.style_outline }) unless s.style_outline.nil?
                   xml['w'].jc({ 'w:val' => s.style_align.to_s }) unless s.style_align.nil?
                   xml['w'].ind(indentation_options(s)) unless indentation_options(s).nil?
                 end
