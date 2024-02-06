@@ -15,7 +15,7 @@ module Caracal
         #--------------------------------------------------
 
         # constants
-        const_set(:TYPE_MAP, { page: 'PAGE', numpages: 'NUMPAGES' })
+        const_set(:TYPE_MAP, { page: 'PAGE', numpages: 'NUMPAGES', table_of_contents: 'TOC \o "1-1" \h \z \u \t "Heading 5,1"' })
 
         # accessors
         attr_reader :field_dirty
@@ -86,7 +86,7 @@ module Caracal
         end
 
         # strings
-        [:bgcolor, :color, :dirty, :font, :highlight_color, :style, :type,].each do |m|
+        [:bgcolor, :color, :dirty, :font, :highlight_color, :style, :type].each do |m|
           define_method "#{ m }" do |value|
             instance_variable_set("@field_#{ m }", value.to_s)
           end
@@ -115,19 +115,6 @@ module Caracal
 
         def option_keys
           [:type, :style, :font, :color, :size, :bold, :italic, :underline, :bgcolor, :highlight_color, :vertical_align]
-        end
-
-        def method_missing(method, *args, &block)
-          # TODO: Better field centric description
-
-          # I'm on the fence with respect to this implementation. We're ignoring
-          # :method_missing errors to allow syntax flexibility for paragraph-type
-          # models.  The issue is the syntax format of those models--the way we pass
-          # the content value as a special argument--coupled with the model's
-          # ability to accept nested instructions.
-          #
-          # By ignoring method missing errors here, we can pass the entire paragraph
-          # block in the initial, built-in call to :text.
         end
 
       end
