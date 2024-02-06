@@ -28,6 +28,7 @@ module Caracal
         const_set(:DEFAULT_STYLE_BOTTOM,     0)          # 0.0in  in twips
         const_set(:DEFAULT_STYLE_BASE,       'Normal')
         const_set(:DEFAULT_STYLE_NEXT,       'Normal')
+        const_set(:DEFAULT_STYLE_OUTLINE,    9)          # no level
 
         # accessors
         attr_reader :style_default
@@ -50,6 +51,7 @@ module Caracal
         attr_reader :style_indent_left
         attr_reader :style_indent_right
         attr_reader :style_indent_first
+        attr_reader :style_outline
 
         # initialization
         def initialize(options={}, &block)
@@ -72,6 +74,7 @@ module Caracal
             @style_top        ||= DEFAULT_STYLE_TOP
             @style_bottom     ||= DEFAULT_STYLE_BOTTOM
             @style_line       ||= DEFAULT_STYLE_LINE
+            @style_outline    ||= DEFAULT_STYLE_OUTLINE
           end
         end
 
@@ -97,7 +100,7 @@ module Caracal
         end
 
         # strings
-        [:id, :type, :name, :color, :font].each do |m|
+        [:id, :type, :name, :color, :font, :outline].each do |m|
           define_method "#{ m }" do |value|
             instance_variable_set("@style_#{ m }", value.to_s)
           end
@@ -155,7 +158,8 @@ module Caracal
             :align,
             :indent_left,
             :indent_right,
-            :indent_first ]
+            :indent_first,
+            :outline ]
         end
 
       end
