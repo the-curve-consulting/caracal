@@ -53,19 +53,17 @@ describe Caracal::Core::Models::TableOfContentsModel do
     #=============== VALIDATION ===========================
 
     describe '.valid?' do
-      describe 'when the opts exist' do
-        before do
-          allow(subject).to receive(:opts).and_return('TOC \o "1-1"')
-        end
-
+      describe 'when name provided' do
         it { expect(subject.valid?).to eq true }
       end
-      describe 'when no runs exist' do
-        before do
-          allow(subject).to receive(:opts).and_return(nil)
+      [:opts, :size, :title].each do |prop|
+        describe "when #{ prop } nil" do
+          before do
+            allow(subject).to receive("font_#{ prop }").and_return(nil)
+          end
+        
+          it { expect(subject.valid?).to eq true }
         end
-
-        it { expect(subject.valid?).to eq false }
       end
     end
 
