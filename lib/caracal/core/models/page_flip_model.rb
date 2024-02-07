@@ -13,6 +13,11 @@ module Caracal
         # Configuration
         #-------------------------------------------------------------
 
+        # accessors
+        attr_reader :page_width
+        attr_reader :page_margin_left
+        attr_reader :page_margin_right
+
         # initialization
         def initialize(options={}, &block)
           super options, &block
@@ -21,6 +26,15 @@ module Caracal
         #-------------------------------------------------------------
         # Public Methods
         #-------------------------------------------------------------
+        
+        #========== SETTERS ===============================
+
+        # integers
+        [:width, :margin_left, :margin_right].each do |m|
+          define_method "#{ m }" do |value|
+            instance_variable_set("@page_#{ m }", value.to_i)
+          end
+        end
 
         #=============== DATA ACCESSORS =======================
 
@@ -34,6 +48,15 @@ module Caracal
         # .valid?
         def valid?
           contents.size > 0
+        end
+
+        #--------------------------------------------------
+        # Private Instance Methods
+        #--------------------------------------------------
+        private
+
+        def option_keys
+          [:width, :margin_left, :margin_right]
         end
       end
     end
