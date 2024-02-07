@@ -15,7 +15,7 @@ module Caracal
         #--------------------------------------------------
 
         # constants
-        const_set(:TYPE_MAP, { page: 'PAGE', numpages: 'NUMPAGES', table_of_contents: 'TOC \o "1-1" \h \z \u \t "Heading 5,1"' })
+        const_set(:TYPE_MAP, { page: 'PAGE', numpages: 'NUMPAGES' })
 
         # accessors
         attr_reader :field_dirty
