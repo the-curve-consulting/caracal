@@ -367,17 +367,7 @@ module Caracal
       end
 
       def render_pagebreak(xml, model)
-        if model.page_break_wrap
-          xml['w'].p paragraph_options do
-            xml['w'].r run_options do
-              xml['w'].br({ 'w:type' => 'page' })
-            end
-          end
-        else
-          xml['w'].r run_options do
-            xml['w'].br({ 'w:type' => 'page' })
-          end
-        end
+        @pagebreak_on_next_paragraph = true
       end
 
       def render_paragraph(xml, model)
@@ -389,6 +379,10 @@ module Caracal
             xml['w'].contextualSpacing({ 'w:val' => '0' })
             xml['w'].jc({ 'w:val' => model.paragraph_align })  unless model.paragraph_align.nil?
             render_run_attributes(xml, model, true)
+            if @pagebreak_on_next_paragraph
+              xml['w'].pageBreakBefore
+              @pagebreak_on_next_paragraph = false
+            end
           end
           model.runs.each do |run|
             method = render_method_for_model(run)
