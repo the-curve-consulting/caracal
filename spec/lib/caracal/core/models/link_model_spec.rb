@@ -15,6 +15,7 @@ describe Caracal::Core::Models::LinkModel do
       bgcolor           'cccccc'
       highlight_color   'yellow'
       vertical_align    :top
+      rotate            true
     end
   end
 
@@ -44,6 +45,7 @@ describe Caracal::Core::Models::LinkModel do
       it { expect(subject.link_bgcolor).to eq 'cccccc' }
       it { expect(subject.link_highlight_color).to eq 'yellow' }
       it { expect(subject.link_vertical_align).to eq :top }
+      it { expect(subject.link_rotate).to eq true }
     end
 
   end
@@ -59,7 +61,7 @@ describe Caracal::Core::Models::LinkModel do
 
     # .run_attributes
     describe '.run_attributes' do
-      let(:expected) { { style: nil, font: 'Courier New', color: '666666', size: 20, bold: false, italic: false, underline: true, bgcolor: 'cccccc', highlight_color: 'yellow', vertical_align: :top } }
+      let(:expected) { { style: nil, font: 'Courier New', color: '666666', size: 20, bold: false, italic: false, underline: true, bgcolor: 'cccccc', highlight_color: 'yellow', vertical_align: :top, rotate: true } }
 
       it { expect(subject.run_attributes).to eq expected }
     end
@@ -87,6 +89,11 @@ describe Caracal::Core::Models::LinkModel do
       before { subject.underline(true) }
 
       it { expect(subject.link_underline).to eq true }
+    end
+    describe '.rotate' do
+      before { subject.underline(true) }
+
+      it { expect(subject.link_rotate).to eq true }
     end
 
     # integers
@@ -169,7 +176,7 @@ describe Caracal::Core::Models::LinkModel do
     # .option_keys
     describe '.option_keys' do
       let(:actual)   { subject.send(:option_keys).sort }
-      let(:expected) { [:content, :href, :internal, :style, :font, :color, :size, :bold, :highlight_color, :italic, :underline, :bgcolor, :vertical_align].sort }
+      let(:expected) { [:content, :href, :internal, :style, :font, :color, :size, :bold, :highlight_color, :italic, :underline, :bgcolor, :vertical_align, :rotate].sort }
 
       it { expect(actual).to eq expected }
     end

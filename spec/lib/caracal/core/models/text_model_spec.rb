@@ -13,6 +13,7 @@ describe Caracal::Core::Models::TextModel do
       bgcolor         'cccccc'
       vertical_align  :subscript
       highlight_color 'yellow'
+      rotate          true
     end
   end
 
@@ -34,6 +35,7 @@ describe Caracal::Core::Models::TextModel do
       it { expect(subject.text_bgcolor).to eq 'cccccc' }
       it { expect(subject.text_highlight_color).to eq 'yellow' }
       it { expect(subject.text_vertical_align).to eq :subscript }
+      it { expect(subject.text_rotate).to eq true }
     end
 
   end
@@ -49,7 +51,7 @@ describe Caracal::Core::Models::TextModel do
 
     # .run_attributes
     describe '.run_attributes' do
-      let(:expected) { { style: nil, font: 'Courier New', color: '666666', size: 20, bold: false, italic: false, underline: true, bgcolor: 'cccccc', highlight_color: 'yellow', vertical_align: :subscript } }
+      let(:expected) { { style: nil, font: 'Courier New', color: '666666', size: 20, bold: false, italic: false, underline: true, bgcolor: 'cccccc', highlight_color: 'yellow', vertical_align: :subscript, rotate: true } }
 
       it { expect(subject.run_attributes).to eq expected }
     end
@@ -72,6 +74,11 @@ describe Caracal::Core::Models::TextModel do
       before { subject.underline(true) }
 
       it { expect(subject.text_underline).to eq true }
+    end
+    describe '.rotate' do
+      before { subject.rotate(true) }
+
+      it { expect(subject.text_rotate).to eq true }
     end
 
     # integers
@@ -144,7 +151,7 @@ describe Caracal::Core::Models::TextModel do
     # .option_keys
     describe '.option_keys' do
       let(:actual)   { subject.send(:option_keys).sort }
-      let(:expected) { [:bgcolor, :bold, :color, :content, :font, :highlight_color, :italic, :size, :style, :underline, :vertical_align].sort }
+      let(:expected) { [:bgcolor, :bold, :color, :content, :font, :highlight_color, :italic, :size, :style, :underline, :vertical_align, :rotate].sort }
 
       it { expect(actual).to eq expected }
     end
