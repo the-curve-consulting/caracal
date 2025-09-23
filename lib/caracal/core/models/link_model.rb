@@ -32,6 +32,7 @@ module Caracal
         alias_method :link_bgcolor,         :text_bgcolor
         alias_method :link_highlight_color, :text_highlight_color
         alias_method :link_vertical_align,  :text_vertical_align
+        alias_method :link_rotate,          :text_rotate
 
         # initialization
         def initialize(options={}, &block)

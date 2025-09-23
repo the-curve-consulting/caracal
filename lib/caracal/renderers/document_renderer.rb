@@ -76,15 +76,16 @@ module Caracal
           else
             xml['w'].rPr do
               unless attrs.empty?
-                xml['w'].rStyle(    { 'w:val'  => attrs[:style] })                            unless attrs[:style].nil?
-                xml['w'].color(     { 'w:val'  => attrs[:color] })                            unless attrs[:color].nil?
-                xml['w'].sz(        { 'w:val'  => attrs[:size]  })                            unless attrs[:size].nil?
-                xml['w'].b(         { 'w:val'  => (attrs[:bold] ? '1' : '0') })               unless attrs[:bold].nil?
-                xml['w'].i(         { 'w:val'  => (attrs[:italic] ? '1' : '0') })             unless attrs[:italic].nil?
-                xml['w'].u(         { 'w:val'  => (attrs[:underline] ? 'single' : 'none') })  unless attrs[:underline].nil?
-                xml['w'].shd(       { 'w:fill' => attrs[:bgcolor], 'w:val' => 'clear' })      unless attrs[:bgcolor].nil?
-                xml['w'].highlight( { 'w:val' => attrs[:highlight_color] })                   unless attrs[:highlight_color].nil?
-                xml['w'].vertAlign( { 'w:val' => attrs[:vertical_align] })                    unless attrs[:vertical_align].nil?
+                xml['w'].rStyle(          { 'w:val'  => attrs[:style] })                            unless attrs[:style].nil?
+                xml['w'].color(           { 'w:val'  => attrs[:color] })                            unless attrs[:color].nil?
+                xml['w'].sz(              { 'w:val'  => attrs[:size]  })                            unless attrs[:size].nil?
+                xml['w'].b(               { 'w:val'  => (attrs[:bold] ? '1' : '0') })               unless attrs[:bold].nil?
+                xml['w'].i(               { 'w:val'  => (attrs[:italic] ? '1' : '0') })             unless attrs[:italic].nil?
+                xml['w'].u(               { 'w:val'  => (attrs[:underline] ? 'single' : 'none') })  unless attrs[:underline].nil?
+                xml['w'].shd(             { 'w:fill' => attrs[:bgcolor], 'w:val' => 'clear' })      unless attrs[:bgcolor].nil?
+                xml['w'].highlight(       { 'w:val'  => attrs[:highlight_color] })                  unless attrs[:highlight_color].nil?
+                xml['w'].vertAlign(       { 'w:val'  => attrs[:vertical_align] })                   unless attrs[:vertical_align].nil?
+                xml['w'].eastAsianLayout( { 'w:vert' => attrs[:rotate] })                           unless attrs[:rotate].nil?
                 unless attrs[:font].nil?
                   f = attrs[:font]
                   xml['w'].rFonts( { 'w:ascii' => f, 'w:hAnsi' => f, 'w:eastAsia' => f, 'w:cs' => f })
