@@ -22,6 +22,7 @@ require 'caracal/core/relationships'
 require 'caracal/core/rules'
 require 'caracal/core/styles'
 require 'caracal/core/tables'
+require 'caracal/core/templates'
 require 'caracal/core/table_of_contents'
 require 'caracal/core/text'
 
@@ -74,6 +75,7 @@ module Caracal
 
     include Caracal::Core::Footer
     include Caracal::Core::Header
+    include Caracal::Core::Templates
 
     #------------------------------------------------------
     # Public Class Methods
@@ -84,8 +86,8 @@ module Caracal
     # This method renders a new Word document and returns it as a
     # a string.
     #
-    def self.render(f_name = nil, &block)
-      docx   = new(f_name, &block)
+    def self.render(f_name = nil, template: nil, &block)
+      docx   = new(f_name, template: template, &block)
       buffer = docx.render
 
       buffer.rewind
@@ -95,8 +97,8 @@ module Caracal
     # This method renders a new Word document and saves it to the
     # file system.
     #
-    def self.save(f_name = nil, &block)
-      docx   = new(f_name, &block)
+    def self.save(f_name = nil, template: nil, &block)
+      docx   = new(f_name, template: template, &block)
       docx.save
       # buffer = docx.render
       #
@@ -111,7 +113,7 @@ module Caracal
 
     # This method instantiates a new word document.
     #
-    def initialize(name = nil, &block)
+    def initialize(name = nil, template: nil, &block)
       file_name(name)
 
       page_size
@@ -124,6 +126,8 @@ module Caracal
           send(method, item)
         end
       end
+
+      load_template(template) if template
 
       if block_given?
         (block.arity < 1) ? instance_eval(&block) : block[self]
@@ -232,17 +236,27 @@ module Caracal
     end
 
     def render_footer(zip)
-      content = ::Caracal::Renderers::FooterRenderer.render(self)
+      content = @raw_footer_xml || ::Caracal::Renderers::FooterRenderer.render(self)
 
       zip.put_next_entry('word/footer1.xml')
       zip.write(content)
+
+      if @raw_footer_rels_xml
+        zip.put_next_entry('word/_rels/footer1.xml.rels')
+        zip.write(@raw_footer_rels_xml)
+      end
     end
 
     def render_header(zip)
-      content = ::Caracal::Renderers::HeaderRenderer.render(self)
+      content = @raw_header_xml || ::Caracal::Renderers::HeaderRenderer.render(self)
 
       zip.put_next_entry('word/header1.xml')
       zip.write(content)
+
+      if @raw_header_rels_xml
+        zip.put_next_entry('word/_rels/header1.xml.rels')
+        zip.write(@raw_header_rels_xml)
+      end
     end
 
     def render_media(zip)
